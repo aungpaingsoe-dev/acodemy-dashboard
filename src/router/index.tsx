@@ -3,11 +3,11 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layouts/DashboardLayout";
 import AuthLayout from "../layouts/AuthLayout";
 // Dashboard Pages
-import Home from "../pages/Dashboard/Home/Index";
-import CategoryIndex from "../pages/Dashboard/Categories/Index";
-import CoureseIndex from "../pages/Dashboard/Courses/Index";
-import StudentProjectIndex from "../pages/Dashboard/StudentProjects/Index";
-import StudnetProjectReviewIndex from "../pages/Dashboard/StudentReviews/Index";
+import Home from "../pages/Dashboard/Home/Home";
+import Category from "../pages/Dashboard/Category/Category";
+import Courese from "../pages/Dashboard/Course/Course";
+import StudentProject from "../pages/Dashboard/StudentProject/StudentProject";
+import StudnetReview from "../pages/Dashboard/StudentReview/StudentReview";
 // Auth Pages
 import Login from "../pages/Auth/Login";
 // Error Pages
@@ -19,10 +19,13 @@ const routes = [
     element: <DashboardLayout />,
     children: [
       { path: "/dashboard", element: <Home /> },
-      { path: "/dashboard/categories", element: <CategoryIndex /> },
-      { path: "/dashboard/courses", element: <CoureseIndex/> },
-      { path: "/dashboard/student-projects", element: <StudentProjectIndex/> },
-      { path: "/dashboard/studnet-project-reviews", element: <StudnetProjectReviewIndex/> }
+      { path: "/dashboard/categories", element: <Category /> },
+      { path: "/dashboard/courses", element: <Courese /> },
+      { path: "/dashboard/student-projects", element: <StudentProject /> },
+      {
+        path: "/dashboard/student-reviews",
+        element: <StudnetReview />,
+      },
     ],
   },
   {

@@ -1,90 +1,67 @@
 import React from "react";
-import { Space, Table, Tag } from "antd";
+import { useGetCategoriesQuery } from "../../../features/api/categoryApi";
+import { useSelector } from "react-redux";
+import { Button, Space, Table } from "antd";
+import Loader from "../../../components/Loader";
 import type { TableProps } from "antd";
+import { FaPlus } from "react-icons/fa6";
 
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
 
-const columns: TableProps<DataType>["columns"] = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
-  },
-  {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
-  },
-  {
-    title: "Tags",
-    key: "tags",
-    dataIndex: "tags",
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
-            color = "volcano";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (_) => (
-      <Space size="middle">
-        <a>Delete</a>
-      </Space>
-    ),
-  },
-];
+const Category: React.FC = () => {
+  const token = useSelector((state: any) => state?.auth?.user?.token);
+  const { data, isLoading }: any = useGetCategoriesQuery(token);
 
-const data: DataType[] = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
-];
+  const columns: TableProps["columns"] = [
+    {
+      title: "ID",
+      dataIndex: "index",
+      key: "index",
+      render: (_, record, index) => index + 1
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Actions",
+      key: "action",
+      render: (_) => (
+        <Space>
+          <Button type="default">Edit</Button>
+          <Button type="default">Delete</Button>
+        </Space>
+      ),
+    },
+  ];
 
-const Category: React.FC = () => (
-  <div>
-    <Table columns={columns} dataSource={data} />
-  </div>
-);
+  return (
+    <div>
+      {/* Header */}
+      <div className="mb-3 d-flex justify-content-end">
+        <Button type="default" className="d-flex align-items-center gap-1">
+          <FaPlus /> Create
+        </Button>
+      </div>
+      {/* Table */}
+      <div>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <div>
+            <Table
+              columns={columns}
+              dataSource={data?.data.map((item: any, index: number) => ({
+                ...item,
+                key: `${item.id}-${index}`,
+                index: index + 1 
+              }))}
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export default Category;

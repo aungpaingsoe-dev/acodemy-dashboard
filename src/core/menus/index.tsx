@@ -26,7 +26,7 @@ const menus: MenuItem[] = [
     "Home",
     "group1",
     null,
-    [getItem("Dashboard", "/dashboard", <AiOutlineHome />)],
+    [getItem("Dashboard", "/dashboard", <AiOutlineHome  style={{ fontSize: "20px" }} />)],
     "group"
   ),
   // Course Management Menus
@@ -35,10 +35,10 @@ const menus: MenuItem[] = [
     "group2",
     null,
     [
-      getItem("Category", "group2menu1", <TbCategory />, [
+      getItem("Category", "group2menu1", <TbCategory  style={{ fontSize: "20px" }}/>, [
         getItem("List", "/dashboard/categories"),
       ]),
-      getItem("Course", "group2menu2", <TbListDetails />, [
+      getItem("Course", "group2menu2", <TbListDetails style={{ fontSize: "20px" }} />, [
         getItem("List", "/dashboard/courses"),
       ]),
     ],
@@ -53,10 +53,10 @@ const menus: MenuItem[] = [
       getItem(
         "Student Project",
         "group3menu1",
-        <AiOutlineFundProjectionScreen />,
+        <AiOutlineFundProjectionScreen style={{ fontSize: "20px" }}/>,
         [getItem("List", "/dashboard/student-projects")]
       ),
-      getItem("Student Review", "group3menu2", <MdOutlineReviews />, [
+      getItem("Student Review", "group3menu2", <MdOutlineReviews style={{ fontSize: "20px" }}/>, [
         getItem("List", "/dashboard/student-reviews"),
       ]),
     ],

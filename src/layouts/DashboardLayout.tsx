@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { MdDashboard } from "react-icons/md";
 import {
   Layout,
   Menu,
@@ -14,53 +15,40 @@ import {
   Dropdown,
 } from "antd";
 import menus from "../core/menus";
+import { useDispatch, useSelector } from "react-redux";
+import { removeUserInfo } from "../features/services/auth/authSlice";
+import { generateAvatorName } from "../utils/Generator";
 const { Sider, Content } = Layout;
-
-const items: MenuProps["items"] = [
-  {
-    key: "1",
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        1st menu item
-      </a>
-    ),
-  },
-  {
-    key: "2",
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.aliyun.com"
-      >
-        2nd menu item
-      </a>
-    ),
-  },
-  {
-    key: "3",
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.luohanacademy.com"
-      >
-        3rd menu item
-      </a>
-    ),
-  },
-];
 
 const App: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const userInfo = useSelector( (state : any) => state.auth?.user);
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const handleLogout = () => {
+    dispatch(removeUserInfo())
+    window.location.reload();
+  };
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: <div>{ userInfo?.name }</div>,
+    },
+    {
+      key: "2",
+      label: (
+        <div className=" text-danger " onClick={handleLogout}>
+          Logout
+        </div>
+      ),
+    },
+  ];
 
   const onClick: MenuProps["onClick"] = (e) => {
     navigate(e.key);
@@ -94,16 +82,20 @@ const App: React.FC = () => {
       >
         <div className="demo-logo-vertical"></div>
         {!collapsed ? (
-          <div className=" text-white text-center py-3 px-3 h5 mb-0">
+          <div className=" d-flex gap-2 align-items-center py-3 px-3 h5 mb-0 position-sticky top-0 z-3 bg-white">
+            <MdDashboard style={{ fontSize: "30px" }} />
             Acodemy
           </div>
         ) : (
-          <div className="text-white text-center py-3 px-3 h5 mb-0">A</div>
+          <div className=" d-flex gap-2 align-items-center justify-content-center py-3 px-3 h5 mb-0 position-sticky top-0 z-3 bg-white">
+           <MdDashboard style={{ fontSize: "30px" }} />
+          </div>
         )}
         <Menu
           mode="inline"
-          theme="dark"
-          defaultSelectedKeys={["/dashboard"]}
+          theme="light"
+          className=" h-100 "
+          defaultSelectedKeys={[location.pathname]}
           onClick={onClick}
           items={menus}
         />
@@ -141,10 +133,14 @@ const App: React.FC = () => {
           </div>
           <Dropdown menu={{ items }} placement="bottomRight" arrow>
             <Avatar
-              style={{ backgroundColor: "red", verticalAlign: "middle", cursor: "pointer" }}
+              style={{
+                backgroundColor: "#000",
+                verticalAlign: "middle",
+                cursor: "pointer",
+              }}
               size="large"
             >
-              A
+              { generateAvatorName( userInfo?.name ) }
             </Avatar>
           </Dropdown>
         </div>

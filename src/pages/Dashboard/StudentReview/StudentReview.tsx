@@ -35,8 +35,8 @@ const StudentReview: React.FC = () => {
     },
     {
       title: "Review",
-      dataIndex: "review",
-      key: "review",
+      dataIndex: "except",
+      key: "except",
     },
     {
       title: "Rating",

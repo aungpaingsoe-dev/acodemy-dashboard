@@ -31,34 +31,14 @@ const menus: MenuItem[] = [
   ),
   // Course Management Menus
   getItem(
-    "Course Management",
+    "Master Records",
     "group2",
     null,
     [
-      getItem("Category", "group2menu1", <TbCategory  style={{ fontSize: "20px" }}/>, [
-        getItem("List", "/dashboard/categories"),
-      ]),
-      getItem("Course", "group2menu2", <TbListDetails style={{ fontSize: "20px" }} />, [
-        getItem("List", "/dashboard/courses"),
-      ]),
-    ],
-    "group"
-  ),
-  // Student Mangement Menus
-  getItem(
-    "Student Management",
-    "group3",
-    null,
-    [
-      getItem(
-        "Student Project",
-        "group3menu1",
-        <AiOutlineFundProjectionScreen style={{ fontSize: "20px" }}/>,
-        [getItem("List", "/dashboard/student-projects")]
-      ),
-      getItem("Student Review", "group3menu2", <MdOutlineReviews style={{ fontSize: "20px" }}/>, [
-        getItem("List", "/dashboard/student-reviews"),
-      ]),
+      getItem("Categories", "/dashboard/categories", <TbCategory  style={{ fontSize: "20px" }} />) , 
+      getItem("Courses", "/dashboard/courses", <TbListDetails  style={{ fontSize: "20px" }} />) ,
+      getItem("Student Projects", "/dashboard/student-projects", <AiOutlineFundProjectionScreen  style={{ fontSize: "20px" }} />) ,
+      getItem("Student Reviews", "/dashboard/student-reviews", <MdOutlineReviews  style={{ fontSize: "20px" }} />) ,
     ],
     "group"
   ),

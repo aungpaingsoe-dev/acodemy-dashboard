@@ -17,7 +17,7 @@ import {
 import menus from "../core/menus";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUserInfo } from "../features/services/auth/authSlice";
-import { generateAvatorName } from "../utils/Generator";
+import { generateAvatorName } from "../utils/Generators";
 const { Sider, Content } = Layout;
 
 const App: React.FC = () => {
@@ -112,23 +112,6 @@ const App: React.FC = () => {
                 width: 64,
                 height: 64,
               }}
-            />
-
-            <Breadcrumb
-              items={[
-                {
-                  title: "Home",
-                },
-                {
-                  title: <a href="">Application Center</a>,
-                },
-                {
-                  title: <a href="">Application List</a>,
-                },
-                {
-                  title: "An Application",
-                },
-              ]}
             />
           </div>
           <Dropdown menu={{ items }} placement="bottomRight" arrow>

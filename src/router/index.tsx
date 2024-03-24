@@ -5,18 +5,27 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import AuthLayout from "../layouts/AuthLayout";
 // Dashboard Pages
 import Home from "../pages/Dashboard/Home/Home";
-import Category from "../pages/Dashboard/Category/Category";
-import Courese from "../pages/Dashboard/Course/Course";
-import StudentProject from "../pages/Dashboard/StudentProject/StudentProject";
-import StudnetReview from "../pages/Dashboard/StudentReview/StudentReview";
+import CategoryList from "../pages/Dashboard/Category/CategoryList";
+import CategoryCreate from "../pages/Dashboard/Category/CategoryCreate";
+import CategoryEdit from "../pages/Dashboard/Category/CategoryEdit";
+import CourseList from "../pages/Dashboard/Course/CourseList";
+import CourseCreate from "../pages/Dashboard/Course/CourseCreate";
+import CourseEdit from "../pages/Dashboard/Course/CourseEdit";
+import StudentProject from "../pages/Dashboard/StudentProject/StudentProjectList";
+import StudentProjectEdit from "../pages/Dashboard/StudentProject/StudentProjectEdit";
+import StudentProjectCreate from "../pages/Dashboard/StudentProject/StudentProjectCreate";
+import StudnetReview from "../pages/Dashboard/StudentReview/StudentReviewList";
+import StudentReviewEdit from "../pages/Dashboard/StudentReview/StudentReviewEdit";
+import StudentReviewCreate from "../pages/Dashboard/StudentReview/StudentReviewCreate";
 // Auth Pages
 import Login from "../pages/Auth/Login";
 // Error Pages
 import NotFound from "../pages/Error/NotFound";
-// Cookie 
+// Cookie
 import { get } from "../utils/LocalStorage";
 
-const dashboardMiddleware = (element : ReactElement) => {
+
+const dashboardMiddleware = (element: ReactElement) => {
   const token = get("token");
   if (!token) {
     return <Navigate to="/login" />;
@@ -24,7 +33,7 @@ const dashboardMiddleware = (element : ReactElement) => {
   return element;
 };
 
-const authMiddleware = (element : ReactElement) => {
+const authMiddleware = (element: ReactElement) => {
   const token = get("token");
   if (token) {
     return <Navigate to="/dashboard" />;
@@ -35,15 +44,29 @@ const authMiddleware = (element : ReactElement) => {
 const routes = [
   {
     path: "/",
-    element: dashboardMiddleware( <DashboardLayout /> ),
+    element: dashboardMiddleware(<DashboardLayout />),
     children: [
       { path: "/dashboard", element: <Home /> },
-      { path: "/dashboard/categories", element: <Category /> },
-      { path: "/dashboard/courses", element: <Courese /> },
+      { path: "/dashboard/categories", element: <CategoryList /> },
+      { path: "/dashboard/categories-create", element: <CategoryCreate /> },
+      { path: "/dashboard/categories-edit/:id", element: <CategoryEdit /> },
+      { path: "/dashboard/courses", element: <CourseList /> },
+      { path: "/dashboard/courses-create", element: <CourseCreate /> },
+      { path: "/dashboard/courses-edit/:id", element: <CourseEdit /> },
       { path: "/dashboard/student-projects", element: <StudentProject /> },
+      { path: "/dashboard/student-projects-edit/:id", element: <StudentProjectEdit /> },
+      { path: "/dashboard/student-projects-create", element: <StudentProjectCreate /> },
       {
         path: "/dashboard/student-reviews",
         element: <StudnetReview />,
+      },
+      {
+        path: "/dashboard/student-reviews-edit/:id",
+        element: <StudentReviewEdit />,
+      },
+      {
+        path: "/dashboard/student-reviews-create",
+        element: <StudentReviewCreate />,
       },
     ],
   },

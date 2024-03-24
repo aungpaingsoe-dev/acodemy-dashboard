@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface UtilState {
-  breadcrumb : any[]
+  breadcrumb : any[],
+  drawerOpen : false,
 }
 
 const initialState: UtilState = {
-    breadcrumb : []
+    breadcrumb : [],
+    drawerOpen : false
 };
 
 export const utilSlice = createSlice({
@@ -16,10 +18,13 @@ export const utilSlice = createSlice({
     updateBreadCrumb: (state, action: PayloadAction<any[]>) => {
       state.breadcrumb = action.payload;
     },
+    drawerOpen: (state, action: PayloadAction<any>) => {
+      state.drawerOpen = action.payload;
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { updateBreadCrumb } = utilSlice.actions;
+export const { updateBreadCrumb, drawerOpen } = utilSlice.actions;
 
 export default utilSlice.reducer;

@@ -24,17 +24,17 @@ npm install
 ```
 
 ```
-yarn install
+yarn
 ```
 
 <p>3. Running Development Server</p>
 
 ```
-npm install
+npm run dev 
 ```
 
 ```
-yarn install
+yarn dev
 ```
 
   

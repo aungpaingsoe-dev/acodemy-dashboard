@@ -30,6 +30,7 @@ type FieldType = {
   duration?: any;
   file?: any;
   rating?: number | string;
+  certificateStatus: number;
 };
 
 const CourseEdit: React.FC = () => {
@@ -51,6 +52,7 @@ const CourseEdit: React.FC = () => {
     formData.append("lectures", String(values.lectures || ""));
     formData.append("duration", values.duration || "");
     formData.append("rating", String(values.rating || ""));
+    formData.append("certificateStatus", String(values.certificateStatus));
     formData.append("file", values.file.file);
 
     const { error, data }: any = await editCourse({ id, body: formData });
@@ -81,6 +83,8 @@ const CourseEdit: React.FC = () => {
         lectures: data.data.lectures,
         duration: data.data.duration,
         rating: data.data.rating,
+        certificateStatus: data.data.certificateStatus,
+        file: data.data.imageUrl,
       });
 
       // Set initial value for the Upload component
@@ -114,24 +118,12 @@ const CourseEdit: React.FC = () => {
           >
             <div className="row">
               <div className="col-12 col-lg-6">
-                <Form.Item
-                  label="Title"
-                  name="title"
-                  rules={[
-                    { required: true, message: "Please input course title!" },
-                  ]}
-                >
+                <Form.Item label="Title" name="title">
                   <Input placeholder="Enter course title" />
                 </Form.Item>
               </div>
               <div className="col-12 col-lg-6">
-                <Form.Item
-                  label="Category"
-                  name="categoryId"
-                  rules={[
-                    { required: true, message: "Please select a category!" },
-                  ]}
-                >
+                <Form.Item label="Category" name="categoryId">
                   <Select placeholder="Select category">
                     {categories &&
                       categories.data &&
@@ -147,13 +139,7 @@ const CourseEdit: React.FC = () => {
 
             <div className="row">
               <div className="col-12 col-lg-6">
-                <Form.Item
-                  label="Skill"
-                  name="skill"
-                  rules={[
-                    { required: true, message: "Please select a skill level!" },
-                  ]}
-                >
+                <Form.Item label="Skill" name="skill">
                   <Select placeholder="Select skill level">
                     <Option value="Beginner">Beginner</Option>
                     <Option value="Intermediate">Intermediate</Option>
@@ -162,14 +148,7 @@ const CourseEdit: React.FC = () => {
                 </Form.Item>
               </div>
               <div className="col-12 col-lg-6">
-                <Form.Item
-                  label="Price"
-                  name="price"
-                  rules={[
-                    { required: true, message: "Please input course price!" },
-                    { type: "number", message: "Please enter a valid number!" },
-                  ]}
-                >
+                <Form.Item label="Price" name="price">
                   <InputNumber
                     placeholder="Enter course price"
                     formatter={(value) => `${value}`.replace(/[^0-9]/g, "")}
@@ -182,17 +161,7 @@ const CourseEdit: React.FC = () => {
 
             <div className="row">
               <div className="col-12 col-lg-6">
-                <Form.Item
-                  label="Lectures"
-                  name="lectures"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input number of lectures!",
-                    },
-                    { type: "number", message: "Please enter a valid number!" },
-                  ]}
-                >
+                <Form.Item label="Lectures" name="lectures">
                   <InputNumber
                     placeholder="Enter number of lectures"
                     formatter={(value) => `${value}`.replace(/[^0-9]/g, "")}
@@ -202,16 +171,7 @@ const CourseEdit: React.FC = () => {
                 </Form.Item>
               </div>
               <div className="col-12 col-lg-6">
-                <Form.Item
-                  label="Duration"
-                  name="duration"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input course duration!",
-                    },
-                  ]}
-                >
+                <Form.Item label="Duration" name="duration">
                   <Input placeholder="Enter course duration" />
                 </Form.Item>
               </div>
@@ -219,47 +179,42 @@ const CourseEdit: React.FC = () => {
 
             <div className="row">
               <div className="col-12 col-lg-6">
-                <Form.Item
-                  label="Rating"
-                  name="rating"
-                  rules={[
-                    { required: true, message: "Please input course rating!" },
-                    { type: "number", message: "Please enter a valid number!" },
-                  ]}
-                >
-                  <InputNumber
-                    placeholder="Enter course rating"
-                    formatter={(value) => `${value}`.replace(/[^0-9]/g, "")}
-                    parser={(value) => `${value}`.replace(/[^0-9]/g, "")}
-                    style={{ width: "100%" }}
-                  />
+                <Form.Item label="Rating" name="rating">
+                  <Select placeholder="Select course rating" allowClear>
+                    <Option value={1}>1</Option>
+                    <Option value={2}>2</Option>
+                    <Option value={3}>3</Option>
+                    <Option value={4}>4</Option>
+                    <Option value={5}>5</Option>
+                  </Select>
+                </Form.Item>
+              </div>
+              <div className="col-12 col-lg-6">
+                <Form.Item label="Certificate Status" name="certificateStatus">
+                  <Select
+                    placeholder="Select course certificate status"
+                    allowClear
+                  >
+                    <Option value={0}>No</Option>
+                    <Option value={1}>Yes</Option>
+                  </Select>
                 </Form.Item>
               </div>
             </div>
 
             <div className="row">
               <div className="col-12 col-lg-12">
-                <Form.Item
-                  label="Description"
-                  name="description"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input course description!",
-                    },
-                  ]}
-                >
-                  <Input.TextArea placeholder="Enter course description" />
+                <Form.Item label="Description" name="description">
+                  <Input.TextArea
+                    placeholder="Enter course description"
+                    style={{ height: "200px" }}
+                  />
                 </Form.Item>
               </div>
             </div>
 
             <div className="col-12 col-lg-8">
-              <Form.Item
-                label="Cover Photo"
-                name="file"
-                rules={[{ required: true, message: "Please upload an image!" }]}
-              >
+              <Form.Item label="Cover Photo" name="file">
                 <Upload
                   accept="image/*"
                   listType="picture"

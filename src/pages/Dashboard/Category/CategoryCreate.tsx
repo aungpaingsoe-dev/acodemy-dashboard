@@ -2,8 +2,6 @@ import React, { useRef } from "react";
 import { Button, Form, type FormProps, Input } from "antd";
 import { useCreateCategoryMutation } from "../../../features/api/categoryApi";
 import { customNotification } from "../../../utils/Notifications";
-import { useDispatch } from "react-redux";
-import { drawerOpen } from "../../../features/services/utils/utilSlice";
 import { useNavigate } from "react-router";
 
 type FieldType = {

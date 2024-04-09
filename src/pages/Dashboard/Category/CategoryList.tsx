@@ -4,7 +4,6 @@ import { Button, Space, Table, Popconfirm } from "antd";
 import Loader from "../../../components/Loader";
 import type { TableProps } from "antd";
 import { FaPlus } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
 import { customNotification } from "../../../utils/Notifications";
 import { useNavigate } from "react-router";
 
@@ -18,7 +17,9 @@ const Category: React.FC = () => {
       title: "ID",
       dataIndex: "index",
       key: "index",
-      render: (_, record, index) => index + 1,
+      render: (_, record, index) => <div key={record.id}>
+        { index + 1 }
+      </div>,
     },
     {
       title: "Name",

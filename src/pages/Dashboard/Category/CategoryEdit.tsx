@@ -57,7 +57,6 @@ const CategoryEdit: React.FC = () => {
           <Form.Item<FieldType>
             label="Name"
             name="name"
-            rules={[{ required: true, message: "Please input category name!" }]}
           >
             <Input placeholder="Enter category name" />
           </Form.Item>

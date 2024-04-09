@@ -17,13 +17,16 @@ import StudentProjectCreate from "../pages/Dashboard/StudentProject/StudentProje
 import StudnetReview from "../pages/Dashboard/StudentReview/StudentReviewList";
 import StudentReviewEdit from "../pages/Dashboard/StudentReview/StudentReviewEdit";
 import StudentReviewCreate from "../pages/Dashboard/StudentReview/StudentReviewCreate";
+import OurTeamMember from "../pages/Dashboard/OurTeamMember/OurTeamMemberList";
+import OurTeamMemberCreate from "../pages/Dashboard/OurTeamMember/OurTeamMemberCreate";
+import OurTeamMemberEdit from "../pages/Dashboard/OurTeamMember/OurTeamMemberEdit";
+
 // Auth Pages
 import Login from "../pages/Auth/Login";
 // Error Pages
 import NotFound from "../pages/Error/NotFound";
 // Cookie
 import { get } from "../utils/LocalStorage";
-
 
 const dashboardMiddleware = (element: ReactElement) => {
   const token = get("token");
@@ -54,8 +57,14 @@ const routes = [
       { path: "/dashboard/courses-create", element: <CourseCreate /> },
       { path: "/dashboard/courses-edit/:id", element: <CourseEdit /> },
       { path: "/dashboard/student-projects", element: <StudentProject /> },
-      { path: "/dashboard/student-projects-edit/:id", element: <StudentProjectEdit /> },
-      { path: "/dashboard/student-projects-create", element: <StudentProjectCreate /> },
+      {
+        path: "/dashboard/student-projects-edit/:id",
+        element: <StudentProjectEdit />,
+      },
+      {
+        path: "/dashboard/student-projects-create",
+        element: <StudentProjectCreate />,
+      },
       {
         path: "/dashboard/student-reviews",
         element: <StudnetReview />,
@@ -67,6 +76,18 @@ const routes = [
       {
         path: "/dashboard/student-reviews-create",
         element: <StudentReviewCreate />,
+      },
+      {
+        path: "/dashboard/our-team-members",
+        element: <OurTeamMember />,
+      },
+      {
+        path: "/dashboard/our-team-members-edit/:id",
+        element: <OurTeamMemberEdit />,
+      },
+      {
+        path: "/dashboard/our-team-members-create",
+        element: <OurTeamMemberCreate />,
       },
     ],
   },

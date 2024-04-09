@@ -3,7 +3,6 @@ import {
   Button,
   Form,
   Input,
-  InputNumber,
   Select,
   Upload,
   UploadFile,
@@ -16,6 +15,8 @@ import {
 } from "../../../features/api/studentReviewApi";
 import { useNavigate, useParams } from "react-router";
 import Loader from "../../../components/Loader";
+
+const { Option } = Select;
 
 type FieldType = {
   name?: string;
@@ -62,6 +63,7 @@ const StudentReviewCreate: React.FC = () => {
         name: data.data.name,
         review: data.data.review,
         rating: data.data.rating,
+        file: data.data.imageUrl,
       });
 
       // Set initial value for the Upload component
@@ -95,16 +97,7 @@ const StudentReviewCreate: React.FC = () => {
           >
             <div className="row">
               <div className="col-12 col-lg-6">
-                <Form.Item
-                  label="Student Name"
-                  name="name"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input student name!",
-                    },
-                  ]}
-                >
+                <Form.Item label="Student Name" name="name">
                   <Input placeholder="Enter student name" />
                 </Form.Item>
               </div>
@@ -113,44 +106,33 @@ const StudentReviewCreate: React.FC = () => {
                 <Form.Item
                   label="Rating"
                   name="rating"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input student review rating!",
-                    },
-                    { type: "number", message: "Please enter a valid number!" },
-                  ]}
                 >
-                  <InputNumber
-                    placeholder="Enter student rating"
-                    formatter={(value) => `${value}`.replace(/[^0-9]/g, "")}
-                    parser={(value) => `${value}`.replace(/[^0-9]/g, "")}
-                    style={{ width: "100%" }}
-                  />
+                  <Select placeholder="Select course rating" allowClear>
+                    <Option value={1}>1</Option>
+                    <Option value={2}>2</Option>
+                    <Option value={3}>3</Option>
+                    <Option value={4}>4</Option>
+                    <Option value={5}>5</Option>
+                  </Select>
                 </Form.Item>
               </div>
             </div>
 
             <div className="row">
               <div className="col-12 col-lg-12">
-                <Form.Item
-                  label="Review"
-                  name="review"
-                  rules={[
-                    { required: true, message: "Please input student review!" },
-                  ]}
-                >
-                  <Input.TextArea placeholder="Enter student review" />
+                <Form.Item label="Review" name="review">
+                  <Input.TextArea
+                    placeholder="Enter student review"
+                    style={{
+                      height: "200px",
+                    }}
+                  />
                 </Form.Item>
               </div>
             </div>
 
             <div className="col-12 col-lg-8">
-              <Form.Item
-                label="Student Photo"
-                name="file"
-                rules={[{ required: true, message: "Please upload an image!" }]}
-              >
+              <Form.Item label="Student Photo" name="file">
                 <Upload
                   accept="image/*"
                   listType="picture"

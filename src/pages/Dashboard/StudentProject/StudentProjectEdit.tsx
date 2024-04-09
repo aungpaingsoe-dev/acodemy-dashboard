@@ -63,6 +63,7 @@ const StudentProjectEdit: React.FC = () => {
         title: data.data.title,
         description: data.data.description,
         categoryId: data.data.categoryId,
+        file: data.data.imageUrl,
       });
 
       // Set initial value for the Upload component
@@ -76,6 +77,7 @@ const StudentProjectEdit: React.FC = () => {
             },
           ]
         : [];
+
       setFileList(fileList);
     }
   }, [data]);
@@ -96,24 +98,12 @@ const StudentProjectEdit: React.FC = () => {
           >
             <div className="row">
               <div className="col-12 col-lg-6">
-                <Form.Item
-                  label="Title"
-                  name="title"
-                  rules={[
-                    { required: true, message: "Please input student project title!" },
-                  ]}
-                >
+                <Form.Item label="Title" name="title">
                   <Input placeholder="Enter student project title" />
                 </Form.Item>
               </div>
               <div className="col-12 col-lg-6">
-                <Form.Item
-                  label="Category"
-                  name="categoryId"
-                  rules={[
-                    { required: true, message: "Please select a category!" },
-                  ]}
-                >
+                <Form.Item label="Category" name="categoryId">
                   <Select placeholder="Select category">
                     {categories &&
                       categories.data &&
@@ -129,17 +119,13 @@ const StudentProjectEdit: React.FC = () => {
 
             <div className="row">
               <div className="col-12 col-lg-12">
-                <Form.Item
-                  label="Description"
-                  name="description"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input student project description!",
-                    },
-                  ]}
-                >
-                  <Input.TextArea placeholder="Enter course student project description" />
+                <Form.Item label="Description" name="description">
+                  <Input.TextArea
+                    placeholder="Enter course student project description"
+                    style={{
+                      height: "200px",
+                    }}
+                  />
                 </Form.Item>
               </div>
             </div>

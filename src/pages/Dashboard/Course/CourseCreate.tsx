@@ -2,8 +2,6 @@ import React, { useRef } from "react";
 import { Button, Form, Input, InputNumber, Select, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { customNotification } from "../../../utils/Notifications";
-import { useDispatch } from "react-redux";
-import { drawerOpen } from "../../../features/services/utils/utilSlice";
 import { useCreateCourseMutation } from "../../../features/api/courseApi";
 import { useGetCategoriesQuery } from "../../../features/api/categoryApi";
 import { useNavigate } from "react-router";
@@ -20,11 +18,11 @@ type FieldType = {
   duration?: any;
   file?: any;
   rating?: number | string;
+  certificateStatus: number;
 };
 
 const CourseCreate: React.FC = () => {
   const formRef = useRef<any>(null);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [createCourse, { isLoading }] = useCreateCourseMutation();
   const { data: categories } = useGetCategoriesQuery("");
@@ -39,7 +37,12 @@ const CourseCreate: React.FC = () => {
     formData.append("lectures", String(values.lectures || ""));
     formData.append("duration", values.duration || "");
     formData.append("rating", String(values.rating || ""));
+    formData.append(
+      "certificateStatus",
+      String(values.certificateStatus) || ""
+    );
     formData.append("file", values.file.file);
+
     const { error, data }: any = await createCourse(formData);
     if (!error) {
       formRef.current.resetFields();
@@ -112,6 +115,7 @@ const CourseCreate: React.FC = () => {
                 </Select>
               </Form.Item>
             </div>
+
             <div className="col-12 col-lg-6">
               <Form.Item
                 label="Price"
@@ -175,12 +179,34 @@ const CourseCreate: React.FC = () => {
                   { type: "number", message: "Please enter a valid number!" },
                 ]}
               >
-                <InputNumber
-                  placeholder="Enter course rating"
-                  formatter={(value) => `${value}`.replace(/[^0-9]/g, "")}
-                  parser={(value) => `${value}`.replace(/[^0-9]/g, "")}
-                  style={{ width: "100%" }}
-                />
+                <Select placeholder="Select course rating" allowClear>
+                  <Option value={1}>1</Option>
+                  <Option value={2}>2</Option>
+                  <Option value={3}>3</Option>
+                  <Option value={4}>4</Option>
+                  <Option value={5}>5</Option>
+                </Select>
+              </Form.Item>
+            </div>
+            <div className="col-12 col-lg-6">
+              <Form.Item
+                label="Certificate Status"
+                name="certificateStatus"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input certificate status!",
+                  },
+                  { type: "number", message: "Please enter a valid number!" },
+                ]}
+              >
+                <Select
+                  placeholder="Select course certificate status"
+                  allowClear
+                >
+                  <Option value={0}>No</Option>
+                  <Option value={1}>Yes</Option>
+                </Select>
               </Form.Item>
             </div>
           </div>
@@ -197,7 +223,10 @@ const CourseCreate: React.FC = () => {
                   },
                 ]}
               >
-                <Input.TextArea placeholder="Enter course description" />
+                <Input.TextArea
+                  placeholder="Enter course description"
+                  style={{ height: "200px" }}
+                />
               </Form.Item>
             </div>
           </div>

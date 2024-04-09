@@ -20,7 +20,7 @@ const StudentProjectList: React.FC = () => {
       title: "ID",
       dataIndex: "index",
       key: "index",
-      render: (_, record, index) => index + 1,
+      render: (_, record, index) => <div key={record.id}>{index + 1}</div>,
     },
     {
       title: "Student Photo",
@@ -60,7 +60,9 @@ const StudentProjectList: React.FC = () => {
         <Space>
           <Button
             type="default"
-            onClick={() => navigate(`/dashboard/student-reviews-edit/${record.id}`)}
+            onClick={() =>
+              navigate(`/dashboard/student-reviews-edit/${record.id}`)
+            }
           >
             Edit
           </Button>

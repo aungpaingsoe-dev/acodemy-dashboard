@@ -20,7 +20,7 @@ const CourseList: React.FC = () => {
       title: "ID",
       dataIndex: "index",
       key: "index",
-      render: (_, record, index) => index + 1,
+      render: (_, record, index) => <div key={record.id}>{index + 1}</div>,
     },
     {
       title: "Cover Photo",

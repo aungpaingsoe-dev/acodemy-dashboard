@@ -62,7 +62,10 @@ const StudentProjectCreate: React.FC = () => {
                 label="Title"
                 name="title"
                 rules={[
-                  { required: true, message: "Please input student project title!" },
+                  {
+                    required: true,
+                    message: "Please input student project title!",
+                  },
                 ]}
               >
                 <Input placeholder="Enter student project title" />
@@ -101,7 +104,9 @@ const StudentProjectCreate: React.FC = () => {
                   },
                 ]}
               >
-                <Input.TextArea placeholder="Enter course student project description" />
+                <Input.TextArea placeholder="Enter course student project description"
+                style={{ height: "200px" }}
+                />
               </Form.Item>
             </div>
           </div>

@@ -39,6 +39,7 @@ const menus: MenuItem[] = [
       getItem("Courses", "/dashboard/courses", <TbListDetails  style={{ fontSize: "20px" }} />) ,
       getItem("Student Projects", "/dashboard/student-projects", <AiOutlineFundProjectionScreen  style={{ fontSize: "20px" }} />) ,
       getItem("Student Reviews", "/dashboard/student-reviews", <MdOutlineReviews  style={{ fontSize: "20px" }} />) ,
+      getItem("Team Members", "/dashboard/our-team-members", <MdOutlineReviews  style={{ fontSize: "20px" }} />) ,
     ],
     "group"
   ),
